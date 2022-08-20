@@ -8,7 +8,7 @@
 * Сделал volume group на __/dev/sdb__ с именем "vg_root" => _Volume group "vg_root" successfully created_.
 * Сделал logical volume с именем "lv_root", занимающий 100% пространства => _Logical volume "lv_root" created_.
 * Сделал файловую систему при помощи утилиты __mkfs.xfs__ и примонтировал volume в __/mnt__.
-* Скопировал данные с корневого каталога __/__ в примонтированный volume в __/mnt__ при помощи утилиты __xfsdump__ => _xfsrestore: Restore Status: SUCCESS_
+*  => _xfsrestore: Restore Status: SUCCESS_
 * Переконфигурил root => _Generating grub configuration file ... Found linux image: /boot/vmlinuz-3.10.0-862.2.3.el7.x86_64 Found initrd image: /boot/initramfs-3.10.0-862.2.3.el7.x86_64.img done_
 * Обновил образ initrd => _*** Creating image file *** *** Creating image file done *** *** Creating initramfs image file '/boot/initramfs-3.10.0 862.2.3.el7.x86_64.img' done ***_
 * Сделал правки в файле __/boot/grub2/grub2.cfg__ => Вывод команды __lsblk_:
@@ -17,8 +17,16 @@
 
 sdb                       8:16   0   10G  0 disk 
 └─vg_root-lv_root       253:0    0   10G  0 lvm  /
-
+ =>
 #### Уменьшение корневого каталога __/__ до 8Gb:
-* Удалил старый logical volume __LogVol00__ командой __lvremove__ => Logical volume "LogVol00" successfully removed.
+* Удалил старый logical volume __LogVol00__ командой __lvremove__ => _Logical volume "LogVol00" successfully removed_.
+* Создал новый logical volume __LogVol00__ на __8Gb__ => _Logical volume "LogVol00" created_.
+* Сделал файловую систему при помощи утилиты __mkfs.xfs__ и примонтировал volume в __/mnt__.
+* Скопировал данные с __/dev/vg_root/lv_root__ в примонтированный volume в __/mnt__ при помощи утилиты __xfsdump__ => _xfsrestore: Restore Status: SUCCESS_
+* Переконфигурировал __grub__ => _Generating grub configuration file ... Found linux image: /boot/vmlinuz-3.10.0-862.2.3.el7.x86_64 Found initrd image: /boot/initramfs-3.10.0-862.2.3.el7.x86_64.img done_
+* Обновил образ initrd => _*** Creating image file *** *** Creating image file done *** *** Creating initramfs image file '/boot/initramfs-3.10.0-862.2.3.el7.x86_64.img' done ***_
+
+#### Выделение тома под /var в зеркало:
+
 
 
